@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Highscores from './components/Highscores';
 import Navbar from './components/Navbar';
 import Pokedex from './components/Pokedex';
 import Pokemon from './components/Pokemon'
@@ -19,6 +20,7 @@ function App() {
                     <Route path={'/pokemon'} element={<Pokedex />} />
                     <Route path={'/pokemon/:id'} element={<Pokedex />} />
                     <Route path={'/pokemon/:id/:info'} element={<Pokemon />} />
+                    <Route path={'/highscores'} element={<Highscores />} />
                 </Routes>
             </body>
         </div>
