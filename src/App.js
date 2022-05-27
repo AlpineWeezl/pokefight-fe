@@ -11,7 +11,9 @@ function App() {
             <header className="App-header">
                 <Navbar />
             </header>
-            <body>
+            <main>
+                <div className='py-3 px-5'>
+
                 <h1 className="text-3xl font-bold underline text-center">
                     Hello world!
                 </h1>
@@ -22,7 +24,8 @@ function App() {
                     <Route path={'/pokemon/:id/:info'} element={<Pokemon />} />
                     <Route path={'/highscores'} element={<Highscores />} />
                 </Routes>
-            </body>
+                </div>
+            </main>
         </div>
     );
 }
