@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar';
 import Pokedex from './components/Pokedex';
+import Pokemon from './components/Pokemon'
 
 function App() {
     return (
@@ -16,6 +17,8 @@ function App() {
                 <Routes>
                     <Route path={'/'} element={<h1>Hello</h1>} />
                     <Route path={'/pokemon'} element={<Pokedex />} />
+                    <Route path={'/pokemon/:id'} element={<Pokedex />} />
+                    <Route path={'/pokemon/:id/:info'} element={<Pokemon />} />
                 </Routes>
             </body>
         </div>
