@@ -12,6 +12,7 @@ html {
 }
 
 .menuNav {
+    overflow-x: hidden;
     overflow-y: hidden;
     list-style: none;
     position: fixed;
@@ -20,7 +21,6 @@ html {
     bottom: 0;
     height: 0;
     width: auto;
-    overflow-x: hidden;
     max-width: 50%;
     z-index: 9;
 }
