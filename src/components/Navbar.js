@@ -11,7 +11,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav className='flex justify-between text-3xl p-5 bg-amber-50'>
+        <nav className='flex justify-between text-3xl p-5 bg-amber-50 sticky top-0'>
             <div className='flex'>
                 <NavLink to={'/'} className={`p-0 text-black`}><FontAwesomeIcon icon={faHouse} /></NavLink>
             </div>
@@ -42,4 +42,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default Navbar;
