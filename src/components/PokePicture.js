@@ -8,7 +8,7 @@ const PokePicture = ({ id, name }) => {
     const [error, setError] = useState(false);
     useEffect(() => {
         axios
-            .get(`${pokeApiPath}/${name}`)
+            .get(`${pokeApiPath}/${name.toLowerCase()}`)
             .then(res => {
                 setPokemonDetails(res.data);
                 setLoading(false);
@@ -19,10 +19,10 @@ const PokePicture = ({ id, name }) => {
     }, [name, pokeApiPath])
     return (
         <>
-            {loading ? <h3>loading...</h3> : (
-                error ? <p>Not found</p> : (
-                    <img id={`${id}`} src={`${pokemonDetails.sprites.front_default}`} alt={name} />
-                )
+            {error && <p>Not found</p>}
+            {(loading && !error) && <h3>loading...</h3>}
+            {(!loading && !error) && (
+                    <img id={`${id}`} src={`${pokemonDetails.sprites.front_default}`} alt={name} name={name} />
             )}
         </>
     )

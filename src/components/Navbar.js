@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
-
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
     const [navbarOpen, setNavbarOpen] = useState(false)
@@ -11,13 +10,13 @@ const Navbar = () => {
     }
 
     return (
-        <nav className='flex justify-between text-3xl p-5 bg-amber-50 sticky top-0'>
+        <nav className='flex justify-between text-3xl p-5 bg-darkblue text-white sticky top-0'>
             <div className='flex'>
-                <NavLink to={'/'} className={`p-0 text-black`}><FontAwesomeIcon icon={faHouse} /></NavLink>
+                <NavLink to={'/'} className={`p-0`}><FontAwesomeIcon icon={faHouse} /></NavLink>
             </div>
             <div className='navBar align-middle flex'>
                 <button onClick={handleToggle}>{navbarOpen ? <FontAwesomeIcon icon={faTimes} /> : <FontAwesomeIcon icon={faBars} />}</button>
-                <ul className={`px-5 flex flex-col justify-around align-middle bg-amber-500 rounded text-lg text-white uppercase list-none inline menuNav ${navbarOpen ? "showMenu" : ""}`} >
+                <ul className={`px-5 flex flex-col justify-around align-middle bg-lightblue rounded text-lg text-white uppercase list-none inline menuNav ${navbarOpen ? "showMenu" : ""}`} >
                     <li className='navItem flex align-middle'>
                         <NavLink to={'/'} className={(
                             { isActive }) => (
