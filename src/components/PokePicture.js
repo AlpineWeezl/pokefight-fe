@@ -21,7 +21,7 @@ const PokePicture = ({ id, name }) => {
         <>
             {loading ? <h3>loading...</h3> : (
                 error ? <p>Not found</p> : (
-                    <img id={`${id}`} src={`${pokemonDetails.sprites.front_default}`} alt={name} />
+                    <img id={`${id}`} src={`${pokemonDetails.sprites.front_default}`} alt={name} name={name} />
                 )
             )}
         </>

@@ -28,7 +28,9 @@ const Pokedex = () => {
 
 
     const detailHandler = (e) => {
-        setSelectedPokemon(pokemon[e.target.id]);
+        setSelectedPokemon(pokemon[e.target.name]);
+        console.log(e.target);
+        setShowDetails(true);
     }
 
     return (
@@ -41,28 +43,27 @@ const Pokedex = () => {
             </div>
             <div className='flex flex-wrap justify-between'>
                 {loading ? <h3 className='text-center'>Loading...</h3> : (
-                    pokemon.map((snglPokemon, index) => {
-                        if (index >= offset && index <= offset + pokemonPerPage) {
-                            return (
-                                <>
-                                    <div key={`Pokemon_${snglPokemon.id}`}>
-                                        <button onClick={detailHandler} className='my-3'>
-                                            <PokePicture id={snglPokemon.id} name={`${snglPokemon.name.english.toLowerCase()}`} />
-                                            <p>{snglPokemon.name.english}</p>
-                                        </button>
-                                    </div>
-                                    {
-                                        selectedPokemon ? (selectedPokemon.id === snglPokemon.id ? (
-                                            <PokeDetails name={snglPokemon.name.english.toLowerCase()} selectedPokemon={selectedPokemon} />
-                                        ) : ('')
-                                        ) : ('')
-                                    }
-                                </>
-                            );
-                        } else {
-                            return <></>
+                    <>
+                        {
+                            pokemon.map((snglPokemon, index) => {
+                                if (index >= offset && index <= offset + pokemonPerPage) {
+                                    return (
+                                        <>
+                                            <div key={`Pokemon_${snglPokemon.id}`}>
+                                                <button name={`${snglPokemon.name.english.toLowerCase()}`} onClick={detailHandler} className='my-3'>
+                                                    <PokePicture id={snglPokemon.id} name={`${snglPokemon.name.english.toLowerCase()}`} />
+                                                    <p>{snglPokemon.name.english}</p>
+                                                </button>
+                                            </div>
+                                        </>
+                                    );
+                                } else {
+                                    return <></>
+                                }
+                            })
                         }
-                    })
+                        <PokeDetails open={showDetails} onClose={() => setShowDetails(false)} selectedPokemon={selectedPokemon} />
+                    </>
                 )}
             </div>
         </>
