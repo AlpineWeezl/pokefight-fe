@@ -15,7 +15,6 @@ const PokeDetails = ({ open, onClose, children, selectedPokemon }) => {
       axios
         .get(`${pokeApiPath}/${selectedPokemon.toLowerCase()}`)
         .then(res => {
-          console.log(res.data);
           setPokemonDetails(res.data);
           setLoading(false);
         })
@@ -39,7 +38,7 @@ const PokeDetails = ({ open, onClose, children, selectedPokemon }) => {
         <div className='fixed container min-h-screen p-3'>
           <div className={`bg-white shadow-lg p-4 mx-auto min-h-full rounded ${open ? 'opacity-100' : 'pointer-events-none opacity-0'} transition-opacity duration-500 ease-in-out`}>
             {error && <h2>Oh no, an error occured. See console for more details</h2>}
-            {loading && <h2>Loading ...</h2>}
+            {(loading && !error) && <h2>Loading ...</h2>}
             {
               (!loading && !error) && (
                 <>

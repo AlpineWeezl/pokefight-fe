@@ -15,12 +15,10 @@ const Stats = ({ stats }) => {
                     {
                         stats.map(stat => {
                             return (
-                                <>
-                                    <tr className='text-right'>
-                                        <td>{stat.stat.name.charAt(0).toUpperCase() + stat.stat.name.slice(1)}:</td>
-                                        <td>{stat.base_stat}</td>
-                                    </tr>
-                                </>
+                                <tr key={`stat_${stat.stat.name}`} className='text-right'>
+                                    <td>{stat.stat.name.charAt(0).toUpperCase() + stat.stat.name.slice(1)}:</td>
+                                    <td>{stat.base_stat}</td>
+                                </tr>
                             )
                         })
                     }

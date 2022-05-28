@@ -7,9 +7,7 @@ const Types = ({ types }) => {
             {
                 types.map(type => {
                     return (
-                        <>
-                            <div>{type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)}</div>
-                        </>
+                        <div key={`type_${type.type.name}`}>{type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)}</div>
                     )
                 }
                 )

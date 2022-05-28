@@ -19,10 +19,10 @@ const PokePicture = ({ id, name }) => {
     }, [name, pokeApiPath])
     return (
         <>
-            {loading ? <h3>loading...</h3> : (
-                error ? <p>Not found</p> : (
+            {error && <p>Not found</p>}
+            {(loading && !error) && <h3>loading...</h3>}
+            {(!loading && !error) && (
                     <img id={`${id}`} src={`${pokemonDetails.sprites.front_default}`} alt={name} name={name} />
-                )
             )}
         </>
     )
