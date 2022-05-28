@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Footer from './components/Footer';
 import Highscores from './components/Highscores';
 import Navbar from './components/Navbar';
 import Pokedex from './components/Pokedex';
@@ -23,6 +24,10 @@ function App() {
                     <Route path={'/highscores'} element={<Highscores />} />
                 </Routes>
             </body>
+            <footer>
+                <Footer />
+            </footer>
+
         </div>
     );
 }
