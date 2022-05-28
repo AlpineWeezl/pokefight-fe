@@ -13,7 +13,7 @@ const Pokedex = () => {
     const [pokemonPerPage, setPokemonPerPage] = useState(20);
     const [offset, setOffset] = useState(0);
     const [pokemon, setPokemon] = useState(null);
-    const [selectedPokemon, setSelectedPokemon] = useState(null);
+    const [previewPokemon, setPreviewPokemon] = useState(null);
     const [searchString, setSearchString] = useState('');
 
     useEffect(() => {
@@ -27,10 +27,14 @@ const Pokedex = () => {
     }, [apiBackendPath]);
 
 
-    const detailHandler = (e) => {
-        setSelectedPokemon(pokemon[e.target.name]);
-        console.log(e.target);
+    const showDetailHandler = (e) => {
+        setPreviewPokemon(e.target.name);
         setShowDetails(true);
+    }
+
+    const closeDetailHandler = (e) => {
+        setPreviewPokemon(null);
+        setShowDetails(false);
     }
 
     return (
@@ -50,8 +54,8 @@ const Pokedex = () => {
                                     return (
                                         <>
                                             <div key={`Pokemon_${snglPokemon.id}`}>
-                                                <button name={`${snglPokemon.name.english.toLowerCase()}`} onClick={detailHandler} className='my-3'>
-                                                    <PokePicture id={snglPokemon.id} name={`${snglPokemon.name.english.toLowerCase()}`} />
+                                                <button name={`${snglPokemon.name.english.toLowerCase()}`} onClick={showDetailHandler} className='my-3'>
+                                                    <PokePicture id={snglPokemon.id} name={`${snglPokemon.name.english}`} />
                                                     <p>{snglPokemon.name.english}</p>
                                                 </button>
                                             </div>
@@ -62,7 +66,7 @@ const Pokedex = () => {
                                 }
                             })
                         }
-                        <PokeDetails open={showDetails} onClose={() => setShowDetails(false)} selectedPokemon={selectedPokemon} />
+                        <PokeDetails open={showDetails} onClose={closeDetailHandler} selectedPokemon={previewPokemon} />
                     </>
                 )}
             </div>

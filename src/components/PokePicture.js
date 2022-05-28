@@ -8,7 +8,7 @@ const PokePicture = ({ id, name }) => {
     const [error, setError] = useState(false);
     useEffect(() => {
         axios
-            .get(`${pokeApiPath}/${name}`)
+            .get(`${pokeApiPath}/${name.toLowerCase()}`)
             .then(res => {
                 setPokemonDetails(res.data);
                 setLoading(false);
