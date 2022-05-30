@@ -12,7 +12,6 @@ const Footer = () => {
             <div className='text-center flex'>
                 <a href='#' className='w-10 h-10 rounded-full bg-lightyellow text-mint mx-1 inline-block pt-2'><FontAwesomeIcon icon={faGithub}/></a>
                 <a href='#' className='w-10 h-10 rounded-full bg-lightyellow text-mint mx-1 inline-block pt-2'><FontAwesomeIcon icon={faLinkedin}/></a>
-                <a href='#' className='w-10 h-10 rounded-full bg-lightyellow text-mint mx-1 inline-block pt-2'><FontAwesomeIcon icon={faYoutube}/></a>
             </div>
         </div>
         

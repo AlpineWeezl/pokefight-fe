@@ -9,7 +9,7 @@ import Pokemon from './components/Pokemon'
 function App() {
     return (
         <div className="App flex flex-col min-h-screen">
-            <header className="App-header mb-auto h-10">
+            <header className="App-header">
                 <Navbar />
             </header>
             <main className='flex-grow'>
