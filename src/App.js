@@ -8,11 +8,11 @@ import Pokemon from './components/Pokemon'
 
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
+        <div className="App flex flex-col min-h-screen">
+            <header className="App-header mb-auto h-10">
                 <Navbar />
             </header>
-            <main>
+            <main className='flex-grow'>
                 <div className='py-3 px-5'>
 
                 <h1 className="text-3xl font-bold underline text-center">
