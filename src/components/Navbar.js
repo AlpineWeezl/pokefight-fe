@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
     const [navbarOpen, setNavbarOpen] = useState(false)
+    useEffect(() => {
+        setNavbarOpen(false);
+    }, [])
+
     const handleToggle = () => {
         setNavbarOpen(!navbarOpen)
     }
