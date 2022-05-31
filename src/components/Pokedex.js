@@ -4,13 +4,13 @@ import PokeDetails from './PokeDetails';
 import PokePicture from './PokePicture';
 
 const Pokedex = () => {
-    const apiBackendPath = `${process.env.REACT_APP_POKEFIGHT_API}/api/pokemon`;
-    const pokemonPerPage = 18;
+    const apiBackendPath = `${process.env.REACT_APP_POKEAPI}?limit=100000&offset=0`;
+    //const pokemonPerPage = 18;
     const offset = 0;
     const [loading, setLoading] = useState(true);
     const [showDetails, setShowDetails] = useState(false);
     // const [currentPage, setCurrentPage] = useState(0);
-    // const [pokemonPerPage, setPokemonPerPage] = useState(18);
+    const [pokemonPerPage, setPokemonPerPage] = useState(18);
     // const [offset, setOffset] = useState(0);
     const [pokemon, setPokemon] = useState(null);
     const [previewPokemon, setPreviewPokemon] = useState(null);
@@ -18,24 +18,23 @@ const Pokedex = () => {
     const [searchString, setSearchString] = useState('');
 
     useEffect(() => {
-        if (searchString.length < 3) {
+        if (searchString.length < 3 && !filteredPokemon) {
             axios
                 .get(apiBackendPath)
                 .then(res => {
-                    setPokemon(res.data);
-                    setFilteredPokemon(res.data);
-                    console.log(res.data);
+                    setPokemon(res.data.results);
+                    setFilteredPokemon(res.data.results);
                     setLoading(false)
                 })
                 .catch(err => console.log(err));
         } else {
             setFilteredPokemon(pokemon.filter(
                 
-                filterPoke => filterPoke.name.english.toLowerCase().includes(searchString.toLowerCase())
+                filterPoke => filterPoke.name.toLowerCase().includes(searchString.toLowerCase())
             ));
             setLoading(false);
         }
-    }, [apiBackendPath, offset, pokemon, pokemonPerPage, searchString]);
+    }, [offset, filteredPokemon, pokemon, searchString, apiBackendPath]);
 
 
     const showDetailHandler = (e) => {
@@ -57,6 +56,10 @@ const Pokedex = () => {
         }
     }
 
+    const showMoreHandler = (e) => {
+        setPokemonPerPage(pokemonPerPage + 18);        
+    }
+
     return (
         <>
             <h2 className='text-center my-5'>Find your Pokémon</h2>
@@ -68,10 +71,10 @@ const Pokedex = () => {
                             filteredPokemon.map((snglPokemon, index) => {
                                 return (
                                     (index >= offset && index < offset + pokemonPerPage) && (
-                                        <div key={`Pokemon_${snglPokemon.id}`}>
-                                            <button name={`${snglPokemon.name.english.toLowerCase()}`} onClick={showDetailHandler} className='my-3'>
-                                                <PokePicture id={snglPokemon.id} name={`${snglPokemon.name.english}`} />
-                                                <p>{snglPokemon.name.english}</p>
+                                        <div key={`Pokemon_${snglPokemon.name}`}>
+                                            <button name={`${snglPokemon.name.toLowerCase()}`} onClick={showDetailHandler} className='my-3'>
+                                                <PokePicture id={snglPokemon.name} name={`${snglPokemon.name}`} />
+                                                <p>{snglPokemon.name}</p>
                                             </button>
                                         </div>
                                     )
@@ -82,6 +85,10 @@ const Pokedex = () => {
                     </>
                 )}
             </div>
+            <div>
+
+            </div>
+                <button className={'border rounded p-2 bg-darkblue'} onClick={showMoreHandler}>select</button>
         </>
     )
 }
