@@ -5,12 +5,12 @@ import PokePicture from './PokePicture';
 
 const Pokedex = () => {
     const apiBackendPath = `${process.env.REACT_APP_POKEFIGHT_API}/api/pokemon`;
-    const pokemonPerPage = 18;
+    //const pokemonPerPage = 18;
     const offset = 0;
     const [loading, setLoading] = useState(true);
     const [showDetails, setShowDetails] = useState(false);
     // const [currentPage, setCurrentPage] = useState(0);
-    // const [pokemonPerPage, setPokemonPerPage] = useState(18);
+    const [pokemonPerPage, setPokemonPerPage] = useState(18);
     // const [offset, setOffset] = useState(0);
     const [pokemon, setPokemon] = useState(null);
     const [previewPokemon, setPreviewPokemon] = useState(null);
@@ -35,7 +35,7 @@ const Pokedex = () => {
             ));
             setLoading(false);
         }
-    }, [apiBackendPath, offset, pokemon, pokemonPerPage, searchString]);
+    }, [apiBackendPath, offset, pokemon, searchString]);
 
 
     const showDetailHandler = (e) => {
@@ -55,6 +55,10 @@ const Pokedex = () => {
         } else {
             setSearchString('');
         }
+    }
+
+    const showMoreHandler = (e) => {
+        setPokemonPerPage(pokemonPerPage + 18);        
     }
 
     return (
@@ -82,6 +86,10 @@ const Pokedex = () => {
                     </>
                 )}
             </div>
+            <div>
+
+            </div>
+                <button className={'border rounded p-2 bg-darkblue'} onClick={showMoreHandler}>select</button>
         </>
     )
 }
