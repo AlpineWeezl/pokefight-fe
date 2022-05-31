@@ -17,7 +17,7 @@ const Home = () => {
                 <input className='border rounded-md p-3' onChange={playerNameChangeHandler} placeholder='Your Name' />
             </div>
             <div className='my-6'>
-                <Link className='bg-darkblue text-white p-5 rounded-md' to={'/pokedex'}>Play!</Link>
+                <Link className='bg-darkblue text-white p-5 rounded-md' to={'/pokemon'}>Play!</Link>
             </div>
         </div>
     )
