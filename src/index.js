@@ -5,13 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import PlayerState from './context/PlayerName';
+import PokedexState from './context/Pokedex';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <BrowserRouter>
             <PlayerState>
-                <App />
+                <PokedexState>
+                    <App />
+                </PokedexState>
             </PlayerState>
         </BrowserRouter>
     </React.StrictMode>
