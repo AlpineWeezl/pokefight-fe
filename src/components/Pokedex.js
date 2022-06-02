@@ -1,19 +1,17 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { gameContext } from '../context/GameContext';
 import PokeDetails from './PokeDetails';
 import PokePicture from './PokePicture';
 
 const Pokedex = () => {
     const apiBackendPath = `${process.env.REACT_APP_POKEAPI}?limit=100000&offset=0`;
-    //const pokemonPerPage = 18;
     const offset = 0;
     const [loading, setLoading] = useState(true);
     const [showDetails, setShowDetails] = useState(false);
-    // const [currentPage, setCurrentPage] = useState(0);
     const [pokemonPerPage, setPokemonPerPage] = useState(18);
-    // const [offset, setOffset] = useState(0);
-    const [pokemon, setPokemon] = useState(null);
-    const [previewPokemon, setPreviewPokemon] = useState(null);
+    const { pokedex, setPokedex, setPlayerPokemon, playerName, playerPokemon } = useContext(gameContext)
     const [filteredPokemon, setFilteredPokemon] = useState(null);
     const [searchString, setSearchString] = useState('');
 
@@ -22,28 +20,28 @@ const Pokedex = () => {
             axios
                 .get(apiBackendPath)
                 .then(res => {
-                    setPokemon(res.data.results);
+                    setPokedex(res.data.results);
                     setFilteredPokemon(res.data.results);
                     setLoading(false)
                 })
                 .catch(err => console.log(err));
         } else if (loading) {
-            setFilteredPokemon(pokemon.filter(
-                
+            setFilteredPokemon(pokedex.filter(
                 filterPoke => filterPoke.name.toLowerCase().includes(searchString.toLowerCase())
             ));
             setLoading(false);
         }
-    }, [offset, filteredPokemon, pokemon, searchString, apiBackendPath, loading]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchString, apiBackendPath, pokemonPerPage]);
 
 
-    const showDetailHandler = (e) => {
-        setPreviewPokemon(e.target.name);
+    const showDetailHandler = async ({ target }) => {
+        await setPlayerPokemon(await pokedex.find(tempPokemon => tempPokemon.name === target.name))
         setShowDetails(true);
     }
 
-    const closeDetailHandler = (e) => {
-        setPreviewPokemon(null);
+    const closeDetailHandler = async (e) => {
+        await setPlayerPokemon(null);
         setShowDetails(false);
     }
 
@@ -51,20 +49,21 @@ const Pokedex = () => {
         if (target.value.length >= 3) {
             setLoading(true);
             setSearchString(target.value);
-        } else if(searchString !== ''){
+        } else if (searchString !== '') {
             setSearchString('');
-            setFilteredPokemon(pokemon);
+            setFilteredPokemon(pokedex);
             setPokemonPerPage(18);
             setLoading(false);
         }
     }
 
     const showMoreHandler = (e) => {
-        setPokemonPerPage(pokemonPerPage + 18);        
+        setPokemonPerPage(pokemonPerPage + 18);
     }
 
     return (
         <>
+            {!playerName && <Navigate to={'/'} replace={true} />}
             <h2 className='text-center my-5'>Find your Pokémon</h2>
             <input onChange={searchHandler} className='w-full text-xl border rounded' placeholder='live search (3 letters)' />
             <div className='flex flex-wrap justify-between'>
@@ -76,15 +75,15 @@ const Pokedex = () => {
                                     (index >= offset && index < offset + pokemonPerPage) && (
                                         <div key={`Pokemon_${snglPokemon.name}`}>
                                             <button name={`${snglPokemon.name.toLowerCase()}`} onClick={showDetailHandler} className='my-3'>
-                                                <PokePicture id={snglPokemon.name} name={`${snglPokemon.name}`} />
-                                                <p>{snglPokemon.name}</p>
+                                                <PokePicture id={snglPokemon.name} name={snglPokemon.name} />
+                                                <p name={snglPokemon.name}>{snglPokemon.name}</p>
                                             </button>
                                         </div>
                                     )
                                 );
                             })
                         }
-                        <PokeDetails open={showDetails} onClose={closeDetailHandler} selectedPokemon={previewPokemon} />
+                        {playerPokemon && <PokeDetails open={showDetails} onClose={closeDetailHandler} />}
                     </>
                 )}
             </div>
