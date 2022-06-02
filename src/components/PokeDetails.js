@@ -1,19 +1,21 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { gameContext } from '../context/GameContext';
 import Stats from './Stats';
 import Types from './Types';
 
 const PokeDetails = ({ open, onClose, children, selectedPokemon }) => {
   const pokeApiPath = `${process.env.REACT_APP_POKEAPI}`;
+  const {playerPokemon, setPlayerPokemon} = useContext(gameContext);
   const [pokemonDetails, setPokemonDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   useEffect(() => {
     if (selectedPokemon) {
       axios
-        .get(`${pokeApiPath}/${selectedPokemon.toLowerCase()}`)
+        .get(`${pokeApiPath}/${playerPokemon.name.toLowerCase()}`)
         .then(res => {
           setPokemonDetails(res.data);
           setLoading(false);

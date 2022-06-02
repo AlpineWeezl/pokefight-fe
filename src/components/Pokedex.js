@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { gameContext } from '../context/GameContext';
 import PokeDetails from './PokeDetails';
 import PokePicture from './PokePicture';
@@ -11,7 +12,7 @@ const Pokedex = () => {
     const [showDetails, setShowDetails] = useState(false);
     const [pokemonPerPage, setPokemonPerPage] = useState(18);
     const { pokedex, setPokedex } = useContext(gameContext)
-    const { setPlayerPokemon } = useContext(gameContext);
+    const { setPlayerPokemon, playerName } = useContext(gameContext);
     const [filteredPokemon, setFilteredPokemon] = useState(null);
     const [searchString, setSearchString] = useState('');
 
@@ -63,6 +64,7 @@ const Pokedex = () => {
 
     return (
         <>
+        {!playerName && <Navigate to={'/'} replace={true}/>}
             <h2 className='text-center my-5'>Find your Pokémon</h2>
             <input onChange={searchHandler} className='w-full text-xl border rounded' placeholder='live search (3 letters)' />
             <div className='flex flex-wrap justify-between'>
