@@ -16,7 +16,7 @@ const Navbar = () => {
     return (
         <nav className='flex justify-between text-3xl p-5 bg-darkblue text-white sticky top-0'>
             <div className='flex'>
-                <NavLink to={'/'} className={`p-0`}><FontAwesomeIcon icon={faHouse} /></NavLink>
+                <NavLink to={'/'} className={`p-0 w-[3rem]`}><img src='https://cdn4.iconfinder.com/data/icons/longico/224/longico-23-512.png' alt='Pokemon Logo' /></NavLink>
             </div>
             <div className='navBar align-middle flex'>
                 <button onClick={handleToggle}>{navbarOpen ? <FontAwesomeIcon icon={faTimes} /> : <FontAwesomeIcon icon={faBars} />}</button>
