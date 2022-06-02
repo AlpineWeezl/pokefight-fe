@@ -27,7 +27,7 @@ const Pokedex = () => {
                     setLoading(false)
                 })
                 .catch(err => console.log(err));
-        } else {
+        } else if (loading) {
             setFilteredPokemon(pokemon.filter(
                 
                 filterPoke => filterPoke.name.toLowerCase().includes(searchString.toLowerCase())
@@ -48,11 +48,14 @@ const Pokedex = () => {
     }
 
     const searchHandler = async ({ target }) => {
-        setLoading(true);
         if (target.value.length >= 3) {
+            setLoading(true);
             setSearchString(target.value);
-        } else {
+        } else if(searchString !== ''){
             setSearchString('');
+            setFilteredPokemon(pokemon);
+            setPokemonPerPage(18);
+            setLoading(false);
         }
     }
 
@@ -63,7 +66,7 @@ const Pokedex = () => {
     return (
         <>
             <h2 className='text-center my-5'>Find your Pokémon</h2>
-            <input onChange={searchHandler} className='w-full text-xl border rounded' placeholder='live search' />
+            <input onChange={searchHandler} className='w-full text-xl border rounded' placeholder='live search (3 letters)' />
             <div className='flex flex-wrap justify-between'>
                 {loading ? <h3 className='text-center'>Loading...</h3> : (
                     <>
