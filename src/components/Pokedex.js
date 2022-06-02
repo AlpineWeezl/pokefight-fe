@@ -24,7 +24,7 @@ const Pokedex = () => {
                     setLoading(false)
                 })
                 .catch(err => console.log(err));
-        } else {
+        } else if (loading) {
             setFilteredPokemon(pokedex.filter(
                 filterPoke => filterPoke.name.toLowerCase().includes(searchString.toLowerCase())
             ));
