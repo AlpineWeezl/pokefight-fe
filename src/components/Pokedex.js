@@ -11,7 +11,7 @@ const Pokedex = () => {
     const [showDetails, setShowDetails] = useState(false);
     const [pokemonPerPage, setPokemonPerPage] = useState(18);
     const { pokedex, setPokedex } = useContext(gameContext)
-    const { playerPokemon, setPlayerPokemon } = useContext(gameContext);
+    const { setPlayerPokemon } = useContext(gameContext);
     const [filteredPokemon, setFilteredPokemon] = useState(null);
     const [searchString, setSearchString] = useState('');
 
@@ -31,6 +31,7 @@ const Pokedex = () => {
             ));
             setLoading(false);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString, apiBackendPath, pokemonPerPage]);
 
 
