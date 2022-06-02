@@ -1,19 +1,16 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { pokedexContext } from '../context/Pokedex';
 import PokeDetails from './PokeDetails';
 import PokePicture from './PokePicture';
 
 const Pokedex = () => {
     const apiBackendPath = `${process.env.REACT_APP_POKEAPI}?limit=100000&offset=0`;
-    //const pokemonPerPage = 18;
     const offset = 0;
+    const { pokemon, setPokemon, pokedex, setPokedex } = useContext(pokedexContext);
     const [loading, setLoading] = useState(true);
     const [showDetails, setShowDetails] = useState(false);
-    // const [currentPage, setCurrentPage] = useState(0);
     const [pokemonPerPage, setPokemonPerPage] = useState(18);
-    // const [offset, setOffset] = useState(0);
-    const [pokemon, setPokemon] = useState(null);
-    const [previewPokemon, setPreviewPokemon] = useState(null);
     const [filteredPokemon, setFilteredPokemon] = useState(null);
     const [searchString, setSearchString] = useState('');
 
@@ -22,28 +19,28 @@ const Pokedex = () => {
             axios
                 .get(apiBackendPath)
                 .then(res => {
-                    setPokemon(res.data.results);
+                    setPokedex(res.data.results);
                     setFilteredPokemon(res.data.results);
                     setLoading(false)
                 })
                 .catch(err => console.log(err));
-        } else if (loading) {
-            setFilteredPokemon(pokemon.filter(
-                
+        } else {
+            setFilteredPokemon(pokedex.filter(
                 filterPoke => filterPoke.name.toLowerCase().includes(searchString.toLowerCase())
             ));
             setLoading(false);
         }
-    }, [offset, filteredPokemon, pokemon, searchString, apiBackendPath, loading]);
+    }, [offset, searchString, apiBackendPath]);
 
 
-    const showDetailHandler = (e) => {
-        setPreviewPokemon(e.target.name);
+    const showDetailHandler = async (e) => {
+        await setPokemon(pokedex.find(poke => poke.name === e.target.name));
+        console.log(pokemon);
         setShowDetails(true);
     }
 
     const closeDetailHandler = (e) => {
-        setPreviewPokemon(null);
+        setPokemon(null);
         setShowDetails(false);
     }
 
@@ -60,7 +57,7 @@ const Pokedex = () => {
     }
 
     const showMoreHandler = (e) => {
-        setPokemonPerPage(pokemonPerPage + 18);        
+        setPokemonPerPage(pokemonPerPage + 18);
     }
 
     return (
@@ -84,15 +81,12 @@ const Pokedex = () => {
                                 );
                             })
                         }
-                        <PokeDetails open={showDetails} onClose={closeDetailHandler} selectedPokemon={previewPokemon} />
+                        {pokemon && <PokeDetails open={showDetails} onClose={closeDetailHandler} />}
                     </>
                 )}
             </div>
             <div>
-
-            </div>
-            <div className='text-center m-5'>
-                <button className={'border rounded p-2 bg-darkblue text-white'} onClick={showMoreHandler}>Show more</button>
+                <button className={'border rounded p-2 bg-darkblue'} onClick={showMoreHandler}>select</button>
             </div>
         </>
     )

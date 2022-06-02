@@ -5,7 +5,8 @@ import Highscores from './components/Highscores';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import Pokedex from './components/Pokedex';
-import Pokemon from './components/Pokemon'
+import Pokemon from './components/Pokemon';
+import Arena from './components/Arena';
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <div className='py-3 px-5'>
                 <Routes>
                     <Route path={'/'} element={<Home />} />
+                    <Route path={'/arena'} element={<Arena />} />
                     <Route path={'/pokemon'} element={<Pokedex />} />
                     <Route path={'/pokemon/:id'} element={<Pokedex />} />
                     <Route path={'/pokemon/:id/:info'} element={<Pokemon />} />
