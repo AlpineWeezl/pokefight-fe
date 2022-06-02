@@ -11,8 +11,7 @@ const Pokedex = () => {
     const [loading, setLoading] = useState(true);
     const [showDetails, setShowDetails] = useState(false);
     const [pokemonPerPage, setPokemonPerPage] = useState(18);
-    const { pokedex, setPokedex } = useContext(gameContext)
-    const { setPlayerPokemon, playerName } = useContext(gameContext);
+    const { pokedex, setPokedex, setPlayerPokemon, playerName, playerPokemon } = useContext(gameContext)
     const [filteredPokemon, setFilteredPokemon] = useState(null);
     const [searchString, setSearchString] = useState('');
 
@@ -32,17 +31,17 @@ const Pokedex = () => {
             ));
             setLoading(false);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString, apiBackendPath, pokemonPerPage]);
 
 
     const showDetailHandler = async ({ target }) => {
-        await setPlayerPokemon(pokedex.find(tempPokemon => tempPokemon.name === target.name))
+        await setPlayerPokemon(await pokedex.find(tempPokemon => tempPokemon.name === target.name))
         setShowDetails(true);
     }
 
-    const closeDetailHandler = (e) => {
-        setPlayerPokemon(null);
+    const closeDetailHandler = async (e) => {
+        await setPlayerPokemon(null);
         setShowDetails(false);
     }
 
@@ -64,7 +63,7 @@ const Pokedex = () => {
 
     return (
         <>
-        {!playerName && <Navigate to={'/'} replace={true}/>}
+            {!playerName && <Navigate to={'/'} replace={true} />}
             <h2 className='text-center my-5'>Find your Pokémon</h2>
             <input onChange={searchHandler} className='w-full text-xl border rounded' placeholder='live search (3 letters)' />
             <div className='flex flex-wrap justify-between'>
@@ -84,7 +83,7 @@ const Pokedex = () => {
                                 );
                             })
                         }
-                        <PokeDetails open={showDetails} onClose={closeDetailHandler} />
+                        {playerPokemon && <PokeDetails open={showDetails} onClose={closeDetailHandler} />}
                     </>
                 )}
             </div>
