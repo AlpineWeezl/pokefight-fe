@@ -38,23 +38,22 @@ const Arena = () => {
                 (!loading && !error) &&
                 <>
                     <div className='flex flex-col grow'>
-                        <h2 className='text-center text-2xl'>Fight!</h2>
                         <div className='flex-grow text-center'>
-                            <div className='flex-none rounded bg-skyblue shadow-lg'>
+                            <div className='flex-none rounded-md bg-skyblue shadow-lg p-2'>
                                 <div className='flex justify-center'>
+                                    <ArenaDetails isPlayer={false} />
                                     <img className='w-1/2' src={enemyPokemon.extended.sprites.front_default} alt={enemyPokemon.name} />
                                 </div>
-                                <ArenaDetails />
                                 <h3 className='py-3 text-3xl'>{enemyPokemon.name}</h3>
                             </div>
-                            <div className='grow align-middle justify-center text-center text-4xl'>
-                                <p>Battleground</p>
+                            <div className='grow align-middle justify-center text-center text-2xl py-3'>
+                                <button className='py-3 px-32 rounded-md shadow-md bg-red text-white'>Fight!</button>
                             </div>
-                            <div className='flex-none bg-skyblue shadow-lg'>
+                            <div className='flex-none rounded-md bg-skyblue shadow-lg p-2'>
                                 <h3 className='py-3 text-3xl'>{playerPokemon.name}</h3>
-                                <ArenaDetails />
                                 <div className='flex justify-center'>
                                     <img className='w-1/2' src={playerPokemon.extended.sprites.back_default} alt={playerPokemon.name} />
+                                    <ArenaDetails isPlayer={true} />
                                 </div>
                             </div>
                         </div>
