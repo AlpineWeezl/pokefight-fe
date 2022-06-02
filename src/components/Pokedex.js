@@ -34,7 +34,7 @@ const Pokedex = () => {
             ));
             setLoading(false);
         }
-    }, [offset, filteredPokemon, pokemon, searchString, apiBackendPath]);
+    }, [offset, filteredPokemon, pokemon, searchString, apiBackendPath, loading]);
 
 
     const showDetailHandler = (e) => {
@@ -91,7 +91,9 @@ const Pokedex = () => {
             <div>
 
             </div>
-                <button className={'border rounded p-2 bg-darkblue'} onClick={showMoreHandler}>select</button>
+            <div className='text-center m-5'>
+                <button className={'border rounded p-2 bg-darkblue text-white'} onClick={showMoreHandler}>Show more</button>
+            </div>
         </>
     )
 }
