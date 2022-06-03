@@ -25,8 +25,8 @@ const ArenaDetails = ({ isPlayer }) => {
                                     pokemon.extended.stats.map(stat => {
                                         return (
                                             <tr key={`${pokemon.name}_${stat}`}>
-                                                <td className='text-right py-1 px-4'>{stat.stat.name}</td>
-                                                <td className='pr-4'>{stat.base_stat}</td>
+                                                <td className='text-right py-1 px-1'>{stat.stat.name}</td>
+                                                <td className='pr-1 text-right'>{stat.base_stat}</td>
                                             </tr>
                                         )
                                     })
