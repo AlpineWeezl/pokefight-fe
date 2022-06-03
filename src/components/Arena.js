@@ -11,6 +11,7 @@ const Arena = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [firstRound, setFirstRound] = useState(true);
+    const [playerWon, setPlayerWon] = useState();
 
     useEffect(() => {
         axios
@@ -32,11 +33,49 @@ const Arena = () => {
     }, [playerPokemon])
 
     const fight = () => {
-        firstRound && enemyPokemon.extended.stats[5].base_stat < playerPokemon.extended.stats[5].base_stat ? setIsPlayerTurn(true) : setIsPlayerTurn(false);
+        let gameOver = false;
+        let playerTurn;
+        firstRound && enemyPokemon.extended.stats[5].base_stat < playerPokemon.extended.stats[5].base_stat ? playerTurn = true : playerTurn = false;
+        console.log(playerTurn);
+
+        //Math.round((playerPokemon.extended.stats[1].base_stat - (playerPokemon.extended.stats[1] / (enemyPokemon.extended.stats[2].base_stat * 0.1))));
         setFirstRound(false);
 
-        if (isPlayerTurn)
-        toggleTurn();
+        while (!gameOver)
+        {
+                if (playerTurn)
+                {
+                    enemyPokemon.extended.stats[0].base_stat = enemyPokemon.extended.stats[0].base_stat - (playerPokemon.extended.stats[1].base_stat - Math.round(enemyPokemon.extended.stats[2].base_stat * 0.1));
+                    console.log(enemyPokemon.extended.stats[0].base_stat)
+                    console.log("player turn");
+                    playerTurn = !playerTurn;
+                    toggleTurn();
+        
+                } else {
+                    playerPokemon.extended.stats[0].base_stat = playerPokemon.extended.stats[0].base_stat - (enemyPokemon.extended.stats[1].base_stat - Math.round(playerPokemon.extended.stats[2].base_stat * 0.1));
+                    console.log(playerPokemon.extended.stats[0].base_stat)
+                    console.log("enemy turn");
+                    playerTurn = !playerTurn;
+                    toggleTurn();
+                }
+    
+                if(playerPokemon.extended.stats[0].base_stat <= 0 || enemyPokemon.extended.stats[0].base_stat <= 0)
+                {
+                    gameOver = true;
+                    if(enemyPokemon.extended.stats[0].base_stat <= 0)
+                    {
+                        setPlayerWon(true);
+                    }
+                    else 
+                    {
+                        setPlayerWon(false);
+                    }
+                    
+                }
+        }
+
+        
+
     }
 
     
@@ -81,6 +120,13 @@ const Arena = () => {
                     </div>
                 </>
             }
+            {playerWon && {
+                if(playerWon)
+                {
+                    //Post to mongoDB
+                }
+                //Show End screen component
+            }}
         </>
     )
 }
