@@ -102,7 +102,7 @@ const Arena = () => {
                             <div className='flex-none rounded-md bg-skyblue shadow-lg'>
                                 <div className='flex justify-center'>
                                     <ArenaDetails isPlayer={false} />
-                                    <img src={enemyPokemon.extended.sprites.front_default} alt={enemyPokemon.name} />
+                                    <img className='w-1/2 h-1/2' src={enemyPokemon.extended.sprites.front_default} alt={enemyPokemon.name} />
                                 </div>
                                 <h3 className='text-3xl'>{enemyPokemon.name}</h3>
                             </div>
@@ -120,13 +120,6 @@ const Arena = () => {
                     </div>
                 </>
             }
-            {playerWon ? {
-                if(playerWon)
-                {
-                    //Post to mongoDB
-                }
-                //Show End screen component
-            } : null}
         </>
     )
 }
