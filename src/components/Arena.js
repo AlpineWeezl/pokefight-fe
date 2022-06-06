@@ -120,13 +120,13 @@ const Arena = () => {
                     </div>
                 </>
             }
-            {playerWon && {
+            {playerWon ? {
                 if(playerWon)
                 {
                     //Post to mongoDB
                 }
                 //Show End screen component
-            }}
+            } : null}
         </>
     )
 }
