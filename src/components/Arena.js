@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { gameContext } from "../context/GameContext";
 import ArenaDetails from "./ArenaDetails";
 
@@ -98,9 +98,8 @@ const Arena = () => {
           <div className="flex flex-col grow">
             <div className="flex-grow text-center">
               {playerWon == true ? (
-                                  <div className="flex-none rounded-md bg-mint shadow-lg">
-
-                <h1>YOU WON</h1>
+                <div className="flex-none rounded-md bg-mint shadow-lg pt-28 pb-28 font-bold">
+                  <h1>YOU WON</h1>
                 </div>
               ) : (
                 <div className="flex-none rounded-md bg-skyblue shadow-lg">
@@ -124,9 +123,8 @@ const Arena = () => {
                 </button>
               </div>
               {playerWon == false ? (
-                                  <div className="flex-none rounded-md bg-lightred shadow-lg p-2">
-
-                <h1>YOU LOST</h1>
+                <div className="flex-none rounded-md bg-lightred shadow-lg pt-28 pb-28 font-bold">
+                  <h1>YOU LOST</h1>
                 </div>
               ) : (
                 <div className="flex-none rounded-md bg-lightyellow shadow-lg p-2">
