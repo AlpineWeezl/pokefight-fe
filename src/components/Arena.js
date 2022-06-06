@@ -102,7 +102,7 @@ const Arena = () => {
                   <h1>YOU WON</h1>
                 </div>
               ) : (
-                <div className="flex-none rounded-md bg-skyblue shadow-lg">
+                <div className="flex-none rounded-md bg-lightyellow shadow-lg">
                   <div className="flex justify-center">
                     <ArenaDetails isPlayer={false} />
                     <img
