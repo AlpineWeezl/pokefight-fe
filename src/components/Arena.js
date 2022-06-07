@@ -6,7 +6,8 @@ import ArenaDetails from "./ArenaDetails";
 
 const Arena = () => {
   const pokeApiPath = `${process.env.REACT_APP_POKEAPI}`;
-  const { playerPokemon, enemyPokemon, setEnemyPokemon } =
+  const backEnd = `${process.env.REACT_APP_POKEFIGHT_API}`
+  const { playerPokemon, enemyPokemon, setEnemyPokemon, playerName } =
     useContext(gameContext);
   const [isPlayerTurn, setIsPlayerTurn] = useState();
   const [loading, setLoading] = useState(true);
@@ -72,6 +73,12 @@ const Arena = () => {
         gameOver = true;
         if (enemyPokemon.extended.stats[0].base_stat <= 0) {
           setPlayerWon(true);
+          axios.post(`${backEnd}/api/highscores/create`, {
+            player: playerName,
+            pokemon: playerPokemon.name,
+            score: 10,
+            rounds: 1
+          }).then((res) => console.log(res)).catch((err) => console.log(err));
         } else {
           setPlayerWon(false);
         }
