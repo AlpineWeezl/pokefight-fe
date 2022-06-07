@@ -11,8 +11,7 @@ const Highscores = () => {
         axios
             .get(apiString)
             .then(res => {
-                console.log(res.data.scores);
-                setPlayers(res.data.scores.sort((a, b) => a.points - b.point));
+                setPlayers(res.data.scores.sort((a, b) => b.score - a.score));
                 setLoading(false);
             })
             .catch(err => setError(err));
@@ -32,7 +31,6 @@ const Highscores = () => {
                                     <th className='text-right py-2 pr-4 text-lg'>Rank</th>
                                     <th className='text-left py-2 pr-2 text-lg'>Player</th>
                                     <th className='text-right py-2 pr-2 text-lg'>Score</th>
-                                    <th className='text-right py-2 pr-2 text-lg'>Rounds</th>
                                 </tr>
                             </thead>
                             <tbody className='divide-y'>
@@ -41,9 +39,8 @@ const Highscores = () => {
                                         return (
                                             <tr key={player._id} className={`${(index % 2 === 0) && ('bg-skyblue')}`}>
                                                 <td className='text-right py-2 pr-4 text-lg'>{index + 1}</td>
-                                                <td className='text-left py-2 pr-2 text-lg'>{player.player}</td>
+                                                <td className='text-left py-2 pr-2 text-lg'>{player._id}</td>
                                                 <td className='text-right py-2 pr-2 text-lg'>{player.score}</td>
-                                                <td className='text-right py-2 pr-2 text-lg'>{player.rounds}</td>
                                             </tr>
                                         )
                                     })
