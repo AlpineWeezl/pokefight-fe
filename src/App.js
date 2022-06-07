@@ -8,7 +8,7 @@ import Navbar from './components/Navbar';
 import Pokedex from './components/Pokedex';
 import Pokemon from './components/Pokemon'
 
-function App() {
+const App = () => {
     return (
         <div className="App flex flex-col min-h-screen">
             <header className="App-header">
