@@ -1,9 +1,16 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Navigate } from 'react-router-dom';
 import { gameContext } from '../context/GameContext';
 
 const Home = () => {
-    const { playerName, setPlayerName } = useContext(gameContext);
+    const { playerName, setPlayerName, setPlayerPokemon, setEnemyPokemon } = useContext(gameContext);
+
+    useEffect(() => {
+        setPlayerPokemon(null);
+        setEnemyPokemon(null);
+        setPlayerName('');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const submitHandler = (e) => {
         const { target } = e;
